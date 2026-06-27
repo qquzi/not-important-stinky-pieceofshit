@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MoonSec Deobfuscation</title>
     <style>
-        body { font-family: sans-serif; max-width: 800px; margin: 20px auto; padding: 0 20px; background: #0b0c10; color: #c5c6c7; }
+        body { font-family: sans-serif; max-width: 800px; margin: 20px auto; padding: 0 20px; background: #000000; color: #c5c6c7; }
         .banner-container { text-align: center; margin-bottom: 20px; }
-        .banner-img { max-width: 100%; height: auto; border-radius: 8px; }
-        textarea { width: 100%; height: 200px; margin-bottom: 10px; font-family: monospace; background: #1f2833; color: #66fcf1; border: 1px solid #45a29e; border-radius: 4px; padding: 10px; box-sizing: border-box; }
-        button { padding: 12px 24px; font-size: 16px; cursor: pointer; background: #45a29e; color: #0b0c10; border: none; border-radius: 4px; font-weight: bold; width: 100%; }
-        button:hover { background: #66fcf1; }
-        pre { background: #1f2833; padding: 15px; white-space: pre-wrap; font-family: monospace; border: 1px solid #45a29e; border-radius: 4px; color: #c5c6c7; overflow-x: auto; }
-        h3 { color: #45a29e; }
+        .banner-img { max-width: 100%; height: auto; border-radius: 4px; }
+        textarea { width: 100%; height: 220px; margin-bottom: 12px; font-family: monospace; background: #0a0a0c; color: #a4b3c6; border: 1px solid #232731; border-radius: 4px; padding: 12px; box-sizing: border-box; resize: vertical; }
+        button { padding: 14px 24px; font-size: 16px; cursor: pointer; background: #3b4252; color: #ffffff; border: 1px solid #4c566a; border-radius: 4px; font-weight: bold; width: 100%; transition: background 0.2s ease; }
+        button:hover { background: #434c5e; }
+        pre { background: #0a0a0c; padding: 15px; white-space: pre-wrap; font-family: monospace; border: 1px solid #232731; border-radius: 4px; color: #a4b3c6; overflow-x: auto; }
+        h3 { color: #8892b0; font-weight: normal; margin-top: 25px; }
     </style>
 </head>
 <body>
     <div class="banner-container">
-        <img src="/banner.png" alt="MoonSec Deobfuscation Banner" class="banner-img">
+        <img src="/banner.png" alt="MoonSec Deobfuscation" class="banner-img">
     </div>
     
     <h3>Input Code:</h3>
-    <textarea id="input" placeholder="Paste obfuscated MoonSec Lua code here..."></textarea>
+    <textarea id="input" placeholder="Paste obfuscated Lua script here..."></textarea>
     
     <button onclick="processCode()">Deobfuscate</button>
     
@@ -32,7 +32,7 @@
         async function processCode() {
             const inputCode = document.getElementById('input').value;
             const outputElement = document.getElementById('output');
-            outputElement.textContent = "Processing...";
+            outputElement.textContent = "Processing script...";
 
             try {
                 const response = await fetch('/deobfuscate', {
@@ -48,7 +48,7 @@
                     outputElement.textContent = data.deobfuscated_code;
                 }
             } catch (err) {
-                outputElement.textContent = "Error connecting to server.";
+                outputElement.textContent = "Error communicating with server.";
             }
         }
     </script>
