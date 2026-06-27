@@ -1,21 +1,18 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const { LuaFactory } = require('wasmoon');
+const { LuauFactory } = require('luau-web');
 
 const app = express();
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 const PORT = process.env.PORT || 3000;
-const luaFactory = new LuaFactory();
-const luaCode = fs.readFileSync('deobfuscator.lua', 'utf8');
+const luauFactory = new LuauFactory();
+const luauCode = fs.readFileSync(path.join(__dirname, 'deobfuscator.lua'), 'utf8');
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-app.get('/banner.png', (req, res) => {
-    res.sendFile(path.join(__dirname, 'banner.png'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.post('/deobfuscate', async (req, res) => {
@@ -25,21 +22,21 @@ app.post('/deobfuscate', async (req, res) => {
     }
 
     try {
-        const lua = await luaFactory.createEngine();
-        lua.global.set('target_code', targetCode);
+        const luau = await luauFactory.createEngine();
+        luau.global.set('target_code', targetCode);
         
         const executionScript = `
-            ${luaCode}
+            ${luauCode}
             return deobfuscate(target_code)
         `;
 
-        const result = await lua.doString(executionScript);
+        const result = await luau.doString(executionScript);
         res.json({ deobfuscated_code: result });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
 });
