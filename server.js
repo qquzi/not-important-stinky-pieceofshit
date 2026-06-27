@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const PORT = process.env.PORT || 3000;
 const luauFactory = new LuauFactory();
-const luauCode = fs.readFileSync(path.join(__dirname, 'deobfuscator.lua'), 'utf8');
+const luaCode = fs.readFileSync(path.resolve(__dirname, 'deobfuscator.lua'), 'utf8');
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -30,7 +30,7 @@ app.post('/deobfuscate', async (req, res) => {
         luau.global.set('target_code', targetCode);
         
         const executionScript = `
-            ${luauCode}
+            ${luaCode}
             return deobfuscate(target_code)
         `;
 
