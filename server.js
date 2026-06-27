@@ -14,6 +14,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+app.get('/banner.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'banner.png'));
+});
+
 app.post('/deobfuscate', async (req, res) => {
     const targetCode = req.body.code;
     if (!targetCode) {
