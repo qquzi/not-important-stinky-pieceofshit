@@ -1,5 +1,5 @@
 {
-  "name": "lua-deobfuscator-service",
+  "name": "luau-deobfuscator-service",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -7,6 +7,6 @@
   },
   "dependencies": {
     "express": "^4.19.2",
-    "wasmoon": "^1.16.0"
+    "luau-web": "^1.4.0"
   }
 }
